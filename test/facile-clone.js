@@ -1,5 +1,3 @@
-'use strict'
-
 const test = require('tape')
 const spok = require('spok')
 // eslint-disable-next-line no-unused-vars

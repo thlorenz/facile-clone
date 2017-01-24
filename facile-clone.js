@@ -1,5 +1,3 @@
-'use strict'
-
 const DELETED = '<deleted>'
 
 const xtend = require('xtend')
