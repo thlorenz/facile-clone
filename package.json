@@ -4,7 +4,7 @@
   "description": "Creates a shallow clone of an object, focusing on primitives and omitting or clipping large values.",
   "main": "facile-clone.js",
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "set -e; for t in test/*.js; do node $t; done"
   },
   "repository": {
     "type": "git",

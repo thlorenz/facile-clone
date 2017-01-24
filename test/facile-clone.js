@@ -4,6 +4,11 @@ const spok = require('spok')
 const ocat = require('./util/ocat')
 const clone = require('../')
 
+// patch in Buffer.from for 0.10 to make tests pass
+if (typeof Buffer.from !== 'function') {
+  Buffer.from = function bufferFrom(s) { return new Buffer(s) }
+}
+
 const o = {
     num: 1
   , bool: true
