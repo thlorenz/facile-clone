@@ -68,7 +68,7 @@ module.exports = function facileClone(x, opts) {
 
   function processKey(acc, k) {
     const val = x[k]
-    // The only real primtivies (Number and Boolean) and
+    // The only "real" primitivies (Number and Boolean) and
     // `null` + `undefined` go right through
     if (typeof val === 'number' ||
         typeof val === 'boolean' ||
@@ -88,7 +88,7 @@ module.exports = function facileClone(x, opts) {
     }
 
     // all other types we just replace with a type indicator
-    acc[k] = { type: typeof val, val: '<deleted>' }
+    acc[k] = { type: typeof val, val: DELETED }
     return acc
   }
 
