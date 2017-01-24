@@ -3,7 +3,7 @@
 Creates a shallow clone of an object, focusing on primitives and omitting or clipping large values.
 
 ```js
-const facileClone = require('./')
+const facileClone = require('facile-clone')
 
 const o = {
     num: 1
