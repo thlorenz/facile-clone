@@ -6,6 +6,14 @@ const defaultOpts = {
   , stringLength: 0
 }
 
+function getPrototypeName(obj) {
+  if (typeof obj !== 'object' || obj === null) return null
+  const proto = Object.getPrototypeOf(obj)
+  if (proto == null) return null
+  if (proto.constructor == null) return null
+  return proto.constructor.name
+}
+
 function clipBuffer(buf, bufferLen) {
   const len = buf.length
   if (bufferLen === 0) {
@@ -52,6 +60,9 @@ function clipString(s, stringLen) {
  * Creates a shallow clone of the object, focusing on primitives and omitting
  * or clipping large values.
  *
+ * For objects it also attempts to detect their prototype and provides it via the `proto`
+ * property.
+ *
  * @name facileClone
  * @function
  * @param {Object} x the object to clone
@@ -86,7 +97,7 @@ module.exports = function facileClone(x, opts) {
     }
 
     // all other types we just replace with a type indicator
-    acc[k] = { type: typeof val, val: DELETED }
+    acc[k] = { type: typeof val, proto: getPrototypeName(val), val: DELETED }
     return acc
   }
 

@@ -1,8 +1,13 @@
+const fs = require('fs')
 const test = require('tape')
 const spok = require('spok')
 // eslint-disable-next-line no-unused-vars
 const ocat = require('./util/ocat')
 const clone = require('../')
+// eslint-disable-next-line no-unused-vars
+function inspect(obj, depth) {
+  console.error(require('util').inspect(obj, false, depth || 5, true))
+}
 
 // patch in Buffer.from for 0.10 to make tests pass
 if (typeof Buffer.from !== 'function') {
@@ -117,5 +122,13 @@ test('\ninclude 100 chars of string (longer than the original)', function(t) {
   })
   t.equal(res.string.val.length, 41, 'included 41 chars of the string')
   t.equal(res.string.val, 'Love trumps hate! At least you\'d hope ...', 'Love trumps hate! At least you\'d hope ...')
+  t.end()
+})
+
+test('\nproto detection', function(t) {
+  t.equal(clone({ stream: fs.createReadStream(__filename) }).stream.proto, 'ReadStream', 'detects ReadStream proto')
+  t.equal(clone({ date: new Date() }).date.proto, 'Date', 'detects Date proto')
+  t.equal(clone({ obj: {} }).obj.proto, 'Object', 'detects Object proto')
+  t.equal(clone({ n: 1 }).n.proto, undefined, 'Number proto is undefined')
   t.end()
 })
