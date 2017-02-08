@@ -101,5 +101,7 @@ module.exports = function facileClone(x, opts) {
     return acc
   }
 
-  return Object.keys(x).reduce(processKey, {})
+  const root = Object.keys(x).reduce(processKey, {})
+  root.proto = getPrototypeName(x)
+  return root
 }

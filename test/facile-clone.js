@@ -130,5 +130,6 @@ test('\nproto detection', function(t) {
   t.equal(clone({ date: new Date() }).date.proto, 'Date', 'detects Date proto')
   t.equal(clone({ obj: {} }).obj.proto, 'Object', 'detects Object proto')
   t.equal(clone({ n: 1 }).n.proto, undefined, 'Number proto is undefined')
+  t.equal(clone(fs.createReadStream(__filename)).proto, 'ReadStream', 'detects ReadStream proto on root')
   t.end()
 })
