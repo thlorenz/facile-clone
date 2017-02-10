@@ -136,7 +136,7 @@ test('\nproto detection', function(t) {
 
 test('\nfunction keeping', function(t) {
   function noop() {}
-  let res = clone({ fn: noop })
+  var res = clone({ fn: noop })
   spok(t, res.fn,
     { $topic: 'fn deleted by default', type: 'function', proto: null, val: '<deleted>' })
 
