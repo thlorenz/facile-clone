@@ -133,3 +133,14 @@ test('\nproto detection', function(t) {
   t.equal(clone(fs.createReadStream(__filename)).proto, 'ReadStream', 'detects ReadStream proto on root')
   t.end()
 })
+
+test('\nfunction keeping', function(t) {
+  function noop() {}
+  let res = clone({ fn: noop })
+  spok(t, res.fn,
+    { $topic: 'fn deleted by default', type: 'function', proto: null, val: '<deleted>' })
+
+  res = clone({ fn: noop }, { keepFunctions: true })
+  t.strictEqual(res.fn, noop, 'attaches function to clone if keepFunctions is true')
+  t.end()
+})

@@ -4,6 +4,7 @@ const xtend = require('xtend')
 const defaultOpts = {
     bufferLength: 0
   , stringLength: 0
+  , keepFunctions: false
 }
 
 function getPrototypeName(obj) {
@@ -66,14 +67,17 @@ function clipString(s, stringLen) {
  * @name facileClone
  * @function
  * @param {Object} x the object to clone
- * @param {Object} opts options to configure how large values are omitted/clipped
- * @param {Number=} opts.bufferLength if greater than `0` parts of buffers are included in the clone, default: `0`
- * @param {Number=} opts.stringLength if greater than `0` parts of strings are included in the clone, default: `0`
+ * @param {Object} $0 options to configure how large values are omitted/clipped
+ * @param {Number} [$0.bufferLength=0] if greater than `0` parts of buffers are included in the clone, default: `0`
+ * @param {Number} [$0.stringLength=0] if greater than `0` parts of strings are included in the clone, default: `0`
+ * @param {Boolean} [$0.keepFunctions=false] if `true` functions are kept attached to the object, NOTE that this
+ * will be a reference to the actual function of the original, i.e. not a clone
  */
 module.exports = function facileClone(x, opts) {
   opts = xtend(defaultOpts, opts)
   const bufferLen = opts.bufferLength
   const stringLen = opts.stringLength
+  const keepFunctions = opts.keepFunctions
 
   function processKey(acc, k) {
     const val = x[k]
@@ -93,6 +97,11 @@ module.exports = function facileClone(x, opts) {
 
     if (Buffer.isBuffer(val)) {
       acc[k] = clipBuffer(val, bufferLen)
+      return acc
+    }
+
+    if (keepFunctions && typeof val === 'function') {
+      acc[k] = val
       return acc
     }
 
