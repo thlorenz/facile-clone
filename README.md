@@ -56,9 +56,11 @@ property.
 **Parameters**
 
 -   `x` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the object to clone
--   `opts` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options to configure how large values are omitted/clipped
-    -   `opts.bufferLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** if greater than `0` parts of buffers are included in the clone, default: `0`
-    -   `opts.stringLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** if greater than `0` parts of strings are included in the clone, default: `0`
+-   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options to configure how large values are omitted/clipped
+    -   `$0.bufferLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** if greater than `0` parts of buffers are included in the clone, default: `0` (optional, default `0`)
+    -   `$0.stringLength` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** if greater than `0` parts of strings are included in the clone, default: `0` (optional, default `0`)
+    -   `$0.keepFunctions` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** if `true` functions are kept attached to the object, NOTE that this
+        will be a reference to the actual function of the original, i.e. not a clone (optional, default `false`)
 
 ## License
 
